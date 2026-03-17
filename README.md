@@ -62,3 +62,19 @@ python screener.py --csv result.csv --no-print
 - `requirements.txt`：依赖（pandas, numpy, yfinance）。
 
 数据来源为 yfinance，仅供学习与回测，实盘请自行核对数据与合规性。
+
+## OpenClaw 定时任务
+
+项目已支持通过 `OpenClaw` 的本地 `crontab` 定时执行：
+
+- 时间：周二到周六 `08:30`
+- 含义：对应美股周一到周五收盘后扫描
+- 脚本：`daily_scan.sh`
+- 数据源：`/Users/apple/.openclaw/workspace/uscd/us_stock_historical_full.db`
+- 通知：读取 `/Users/apple/.openclaw/workspace/uscd/.env_telegram` 中的 `TELEGRAM_BOT_TOKEN` 和 `TELEGRAM_CHAT_ID`
+
+脚本会：
+
+- 运行全量美股 DY 扫描
+- 输出每日 `CSV` 与 `HTML`
+- 通过 `Telegram` 发送摘要和 `CSV`
